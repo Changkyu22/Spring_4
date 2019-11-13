@@ -22,5 +22,29 @@ public class BoardQnaService implements BoardService {
 		pager.makePage(boardQnaDAO.boardCount(pager));
 		return boardQnaDAO.boardList(pager);
 	}
-	
+
+	@Override
+	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int boardWrite(BoardVO boardVO) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int boardUpdate(BoardVO boardVO) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int boardDelete(BoardVO boardVO) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

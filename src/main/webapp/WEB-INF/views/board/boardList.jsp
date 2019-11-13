@@ -23,7 +23,7 @@
 <!-- 	<a href="./noticeWrite">Notice Write</a></body> -->
 	<div class="container">
   		<div class="jumbotron">
-    		<h1>Notice List Page</h1>
+    		<h1>${PageName}</h1>
 		</div>
 	</div>
 	<div class="container">

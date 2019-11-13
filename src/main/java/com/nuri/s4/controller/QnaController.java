@@ -9,26 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nuri.s4.model.BoardVO;
-import com.nuri.s4.service.BoardNoticeService;
+import com.nuri.s4.service.BoardQnaService;
 import com.nuri.s4.util.Pager;
 
 @Controller
-@RequestMapping("/notice/**")
-public class NoticeController {
+@RequestMapping("/qna/**")
+public class QnaController {
 	
 	@Inject
-	private BoardNoticeService boardNoticeService;
+	private BoardQnaService boardQnaService;
 	
-	@RequestMapping(value = "noticeList")
+	@RequestMapping(value = "qnaList")
 	public ModelAndView boardList(Pager pager)throws Exception{
-		List<BoardVO> ar = boardNoticeService.boardList(pager);
+		List<BoardVO> ar = boardQnaService.boardList(pager);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.addObject("PageName","Notice");
+		mv.addObject("PageName", "QnA");
 		mv.setViewName("board/boardList");
 		return mv;
 	}
-	
-	
 }
