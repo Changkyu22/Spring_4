@@ -18,27 +18,8 @@ public class BoardQnaService implements BoardService {
 	private BoardQnaDAO boardQnaDAO;
 	
 	public int boardReply(BoardVO boardVO) throws Exception{
-		BoardQnaVO parent = (BoardQnaVO)boardQnaDAO.boardSelect(boardVO);
-		int result = boardQnaDAO.boardReplyUpdate(parent);
-		// 1번째 방법
-//		BoardQnaVO child = new BoardQnaVO();
-//		child.setTitle(boardVO.getTitle());
-//		child.setWriter(boardVO.getWriter());
-//		child.setContents(boardVO.getContents());
-//		child.setRef(parent.getRef());
-//		child.setStep(parent.getStep()+1);
-//		child.setDepth(parent.getDepth()+1);
-//		boardQnaDAO.boardReplyUpdate(child);
-//		return boardQnaDAO.boardReply(child);
-		
-		// 2번째 방법
-		parent.setTitle(boardVO.getTitle());
-		parent.setWriter(boardVO.getWriter());
-		parent.setContents(boardVO.getContents());
-		parent.setStep(parent.getStep()+1);
-		parent.setDepth(parent.getDepth()+1);
-		
-		return boardQnaDAO.boardReply(parent);
+		boardQnaDAO.boardReplyUpdate(boardVO);
+		return boardQnaDAO.boardReply(boardVO);
 	}
 	
 	@Override

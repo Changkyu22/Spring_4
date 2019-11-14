@@ -43,7 +43,9 @@
   			
   			<a href="./${board}Update.notice?num=${requestScope.dto.num}" class="btn btn-default">Update</a>
   			<a href="./${board}Delete.notice?num=${requestScope.dto.num}" class="btn btn-default">Delete</a>
-  			<a href="./${board}Reply.notice?num=${requestScope.dto.num}" class="btn btn-default">Reply</a>
+  			<c:if test="${board ne 'notice'}" >
+  				<a href="./${board}Reply.notice?num=${requestScope.dto.num}" class="btn btn-default">Reply</a>
+  			</c:if>
   			<a href="./${board}List.notice?num=${requestScope.dto.num}" class="btn btn-default">List</a>
   			
   		</div>
