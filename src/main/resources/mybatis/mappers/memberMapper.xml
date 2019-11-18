@@ -11,13 +11,13 @@
     
 		<update id="memberUpdate" parameterType="MemberVO">
 			update member set 
-			pw=#{pw}, name=#{name}, email=#{email}, birth=
-			(select TO_CHAR(#{birth}), 'YYYY.MM.DD') from member, gender=#{gender}, point=0
+			pw=#{pw}, name=#{name}, email=#{email}, to_char(birth, 'yyyy-mm-dd') as birth=#{birth}
+			 from member, gender=#{gender}, point=0
 			where id=#{id} 
 		</update>
 		    	
     	<select id="memberLogin" parameterType="MemberVO" resultType="MemberVO">
-    		select * from member where id = #{id} and pw = #{pw}
+    		select id, pw, name, email, to_char(birth, 'yyyy-mm-dd') as birth, gender from member where id = #{id} and pw = #{pw}
     	</select>
     
     	<select id="memberIdCheck" parameterType="MemberVO" resultType="MemberVO">
