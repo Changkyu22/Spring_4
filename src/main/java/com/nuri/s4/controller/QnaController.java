@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.jws.WebParam.Mode;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,8 +115,8 @@ public class QnaController {
 		return mv;
 	}
 	@RequestMapping(value = "qnaWrite", method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardVO boardVO)throws Exception{
-		int result = boardQnaService.boardWrite(boardVO);
+	public ModelAndView boardWrite(BoardVO boardVO, HttpSession session)throws Exception{
+		int result = boardQnaService.boardWrite(boardVO, session);
 		ModelAndView mv = new ModelAndView();
 		if(result>0) {
 			mv.setViewName("redirect:./qnaList");

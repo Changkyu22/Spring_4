@@ -19,7 +19,7 @@
 	<c:import url="../layout/nav.jsp" />
 		<div class="container">
 		  <h2>${PageName} Page</h2>
-		  <form action="./${board}Write" method="POST" id="frm" onsubmit=true>
+		  <form action="./${board}Write" method="post" id="frm" onsubmit=true enctype="multipart/form-data">
 		  
 		    <div class="form-group">
 		      <label for="name">TITLE</label>
@@ -34,6 +34,11 @@
 		    <div class="form-group">
 	      		<label for="comment">Contents:</label>
 	      		<textarea class="form-control" rows="5" id="contents" placeholder="Enter contents" name="contents">${dto.contents}</textarea>
+	   		</div>
+	   		
+		    <div class="form-group">
+	      		<label for="file">File:</label>
+	      		<input type="file" class="form-control" id="file" name="file">
 	   		</div>
 		    
 		    

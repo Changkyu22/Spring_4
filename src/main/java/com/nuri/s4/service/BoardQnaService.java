@@ -3,6 +3,7 @@ package com.nuri.s4.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class BoardQnaService implements BoardService {
 	}
 
 	@Override
-	public int boardWrite(BoardVO boardVO) throws Exception {
+	public int boardWrite(BoardVO boardVO, HttpSession session) throws Exception {
 		return boardQnaDAO.boardWrite(boardVO);
 	}
 
