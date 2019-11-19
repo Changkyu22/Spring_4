@@ -43,7 +43,7 @@
 	      				<input type="file" class="form-control" id="file" name="file">
 	      			</div>
 		    	<div class="col-sm-1">
-	      			<input type="button" class="form-control" name="file" value="del" class= "btn btn-danger del">
+	      			<input type="button" name="file" value="del" class= "btn btn-danger del">
 	   			</div>
 				</div>
 			</div>	   		
@@ -78,8 +78,10 @@
 				alert("del");	
 			});
 			
-			var btn = document.getElementById("btn");
-			var del = document.getElementsByClassName("del");
+			$('#frm').on('click', '.del', function() {
+				$(this).closest($('.form-group')).remove();
+				count--;
+			});
 		
 		</script>
 	
