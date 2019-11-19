@@ -35,17 +35,53 @@
 	      		<label for="comment">Contents:</label>
 	      		<textarea class="form-control" rows="5" id="contents" placeholder="Enter contents" name="contents">${dto.contents}</textarea>
 	   		</div>
+			
+			<div id="files">	   		
+		    	<div class="form-group">
+	      			<label class="control-label col-sm-2" for="file">File:</label>
+	      			<div class="col-sm-9">
+	      				<input type="file" class="form-control" id="file" name="file">
+	      			</div>
+		    	<div class="col-sm-1">
+	      			<input type="button" class="form-control" name="file" value="del" class= "btn btn-danger del">
+	   			</div>
+				</div>
+			</div>	   		
 	   		
-		    <div class="form-group">
-	      		<label for="file">File:</label>
-	      		<input type="file" class="form-control" id="file" name="file">
-	   		</div>
+	   		<input type="button" value="add file" class="btn btn-default" id="btn">
 		    
 		    
 		    <button class="btn btn-default" id="submit">SUBMIT</button>
 			<a href="./${board}List.jsp" class="btn btn-default">LIST</a>
 		  </form>
 		</div>
+		
+		<script type="text/javascript">
+			var files = $('#files').html();
+			$('#files').empty();
+			var count = 0;
+			
+// 			$(".del").click(function() {
+// 				alert("del");	
+// 			});
+			
+			$('#btn').click(function() {
+				if(count<5){
+					$('#files').append(files);
+					count++;
+				}else {
+					alert("5개 이상 금지");
+				}
+			});
+			
+			$(".del").click(function() {
+				alert("del");	
+			});
+			
+			var btn = document.getElementById("btn");
+			var del = document.getElementsByClassName("del");
+		
+		</script>
 	
 </body>
 </html>
