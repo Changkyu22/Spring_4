@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nuri.s4.dao.BoardNoticeDAO;
 import com.nuri.s4.model.BoardVO;
+import com.nuri.s4.util.FileSaver;
 import com.nuri.s4.util.Pager;
-import com.nuri.s4.util.fileSaver;
 
 @Service
 public class BoardNoticeService implements BoardService {
@@ -38,7 +38,7 @@ public class BoardNoticeService implements BoardService {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
 		System.out.println(realPath);
 		
-		fileSaver fs = new fileSaver();
+		FileSaver fs = new FileSaver();
 		String fileName = fs.save(realPath, boardVO.getFile());
 		boardVO.setFileName(fileName);
 		boardVO.setOriginalName(boardVO.getFile().getOriginalFilename());
