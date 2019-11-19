@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     
     
 	<nav class="navbar navbar-inverse">
@@ -19,13 +30,15 @@
 	      	<li><a href="${pageContext.request.contextPath}/qna/qnaList">QnA</a></li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
-	    
-	    	<li><a href="${pageContext.request.contextPath}/member/memberMyPage"><span class="glyphicon glyphicon-user"></span>My Page</a></li>
+	    <c:if test="${not empty sessionScope.member}">
+	    	<li><a href="${pageContext.request.contextPath}/member/memberMypage"><span class="glyphicon glyphicon-user"></span>My Page</a></li>
 	      	<li><a href="${pageContext.request.contextPath}/member/memberLogout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
-	      	
+	    </c:if>
+	    
+	    <c:if test="${empty member}">
 	      	<li><a href="${pageContext.request.contextPath}/member/memberJoin"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
 	      	<li><a href="${pageContext.request.contextPath}/member/memberLogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-	    
+	    </c:if>
 	    </ul>
 	  	</div>
 	</nav>
