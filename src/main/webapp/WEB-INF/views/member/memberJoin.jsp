@@ -20,14 +20,18 @@
 	<div class="container">
 		<h2>Member Join Form</h2>
 		<form action="./memberJoin" id="frm" method="post">
-			<div class="form-group">
-				<label for="id" class="form-group">ID:</label>
+			<div class="form-group" id="result">
+				<label for="id" class="form-group" id="check">ID:</label>
 				<input type="text" class="form-inline" id="id" placeholder="Enter ID" required="required" name="id">
-		    	<input type="button" class="btn btn-default" value="중복확인" id="checkId">
+		    	<div id="checkIdResult"></div>
 			</div>	
 		    <div class="form-group">
 				<label for="pw">PW:</label>
 				<input type="password" class="form-control" id="pw" placeholder="Enter PW" required="required" name="pw">
+		    </div>
+		    <div class="form-group">
+				<label for="pw">2nd PW:</label>
+				<input type="password" class="form-control" id="pw" placeholder="Enter PW" required="required" name="pw2">
 		    </div>
 		    <div class="form-group">
 				<label for="name">NAME:</label>
@@ -48,16 +52,37 @@
 					<label><input type="checkbox" name="gender" value="F">Female</label>
 				</div>
 		    </div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<input type="button" id="join" class="btn btn-default" value="join">
 		</form>
 	</div>
 	
 	<script type="text/javascript">
-		//$("선택자").action();
-		$("#checkId").click(function() { // callback 함수
-			var id = $("#id").val();
-			window.open("./memberIdCheck?id="+id,"","width=1000,height=400,left=400,top=200");
+		var idCheck = false; // false : 중복된 아이디 혹은 중복검사를 하지 않은 경우
+							 // true  : 중복되지 않은 아이디
+		$('#join').click(function() {
+			alert(idCheck);
 		});
+		$('#id').blur(function() {
+			var id = $(this).val();
+			$.post("./memberIdCheck", {id:id}, function(data) {
+				data = data.trim();
+				if(data=='pass'){
+					$('#checkIdResult').html('사용가능 ID');
+					$('#checkIdResult').attr("class", "text-success");
+					idCheck = true;
+				}else{
+					$('#checkIdResult').html('중복된 ID');
+					$('#checkIdResult').attr("class", "text-danger");
+					idCheck = false;
+					$('#id').val("");
+					$('#id').focus();
+				}
+				
+			});
+		});
+		
+	
+	
 	</script>
 </body>
 </html>

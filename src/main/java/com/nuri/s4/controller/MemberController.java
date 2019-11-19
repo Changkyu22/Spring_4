@@ -91,16 +91,16 @@ public class MemberController {
 		return mv;
 	}
 	
-	@GetMapping(value = "memberIdCheck")
+	@PostMapping(value = "memberIdCheck")
 	public void memberIdCheck(MemberVO memberVO, Model model) throws Exception{
 		memberVO = memberServiceImpl.memberIdCheck(memberVO);
-		String result = "중복된 ID";
+		
+		String result = "unpass";
 		
 		if(memberVO == null) {
 			// 사용가능
-			result= "사용가능 ID";
+			result = "pass";
 		}
-		model.addAttribute("dto", memberVO);
 		model.addAttribute("result", result);
 	}
 	
