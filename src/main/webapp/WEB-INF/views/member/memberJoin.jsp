@@ -19,7 +19,7 @@
 <c:import url="../layout/nav.jsp"></c:import>
 	<div class="container">
 		<h2>Member Join Form</h2>
-		<form action="./memberJoin" id="frm" method="post">
+		<form action="./memberJoin" id="frm" method="post" enctype="multipart/form-data">
 			<div class="form-group" id="result">
 				<label for="id" class="form-group" id="check">ID:</label>
 				<input type="text" class="form-inline" id="id" placeholder="Enter ID" required="required" name="id">
@@ -52,6 +52,10 @@
 					<label><input type="checkbox" name="gender" value="F">Female</label>
 				</div>
 		    </div>
+	    	<div class="form-group">
+				<label for="file">FILE:</label>
+				<input type="file" class="form-control" id="file" required="required" name="file">
+		    </div>
 			<input type="button" id="join" class="btn btn-default" value="join">
 		</form>
 	</div>
@@ -60,8 +64,13 @@
 		var idCheck = false; // false : 중복된 아이디 혹은 중복검사를 하지 않은 경우
 							 // true  : 중복되지 않은 아이디
 		$('#join').click(function() {
-			alert(idCheck);
+			if(idCheck){
+				$('#frm').submit();
+			}else{
+				$('#frm').reset();
+			}
 		});
+		
 		$('#id').blur(function() {
 			var id = $(this).val();
 			$.post("./memberIdCheck", {id:id}, function(data) {

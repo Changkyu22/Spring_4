@@ -57,6 +57,9 @@
 				<label for="point">POINT:</label>
 				<input type="text" class="form-control" id="point" placeholder="Your Point" required="required" name="point" readonly="readonly" value="${member.point}">
 		    </div>
+   		    <div class="form-group">
+				<img alt="" src="../resources/upload/member/${member.fileName}">
+		    </div>
 			<a href="./memberUpdate"><input type="button" class="btn btn-default" value="Go Update"></a> 
 			<a href="./memberDelete?id=${member.id}" class="btn btn-default">QUIT</a>
 		</form>

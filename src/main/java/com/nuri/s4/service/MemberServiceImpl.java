@@ -1,11 +1,15 @@
 package com.nuri.s4.service;
 
+import java.io.File;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
 import com.nuri.s4.dao.MemberDAOImpl;
 import com.nuri.s4.model.MemberVO;
+import com.nuri.s4.util.FileSaver;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -19,7 +23,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public int memberJoin(MemberVO memberVO) throws Exception {
+	public int memberJoin(MemberVO memberVO, HttpSession session) throws Exception {
+		// Server Hdd에 파일 저장
+		// 1. 파일을 저장할 실제 경로
+		String realPath = session.getServletContext().getRealPath("resources/upload/member");
+		
+		FileSaver fs = new FileSaver();
+		String fileName = fs.save3(realPath, memberVO.getFile());
+//		String fileName = fs.save(realPath, memberVO.getFile());
+		memberVO.setFileName(fileName);
+		memberVO.setOriginalName(memberVO.getFile().getOriginalFilename());
 		return memberDAOImpl.memberJoin(memberVO);
 	}
 
@@ -36,6 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberDelete(MemberVO memberVO) throws Exception {
 		return memberDAOImpl.memberDelete(memberVO);
+		
 	}
 
 	@Override
