@@ -33,6 +33,13 @@
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			<c:forEach items="${dto.files}" var="file">
+				<a href="../resources/upload/${board}/${file.fname}">${file.oname}</a>
+			</c:forEach>
+		</div>
+		
+		
 		<div class="container">
  			<form>
     		<div class="form-group">

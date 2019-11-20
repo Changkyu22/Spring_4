@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nuri.s4.model.BoardVO;
@@ -115,8 +116,8 @@ public class QnaController {
 		return mv;
 	}
 	@RequestMapping(value = "qnaWrite", method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardVO boardVO, HttpSession session)throws Exception{
-		int result = boardQnaService.boardWrite(boardVO, session);
+	public ModelAndView boardWrite(BoardVO boardVO, MultipartFile [] file, HttpSession session)throws Exception{
+		int result = boardQnaService.boardWrite(boardVO, file, session);
 		ModelAndView mv = new ModelAndView();
 		if(result>0) {
 			mv.setViewName("redirect:./qnaList");

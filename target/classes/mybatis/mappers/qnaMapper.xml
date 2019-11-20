@@ -55,9 +55,12 @@
 			where R between #{startRow} and #{lastRow}
  	 	</select>
  	 	
- 	 	<insert id="boardWrite" parameterType="QnaVO">
+ 	 	<insert id="boardWrite" parameterType="BoardVO">
+ 	 	<selectKey order="BEFORE" resultType="Integer" keyProperty="num">
+ 	 		select board_seq.nextval from dual
+ 	 	</selectKey>
 			insert into qna 
-			values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, board_seq.currval, 0, 0)
+			values(#{num}, #{title}, #{writer}, #{contents}, sysdate, 0, board_seq.currval, 0, 0)
 		</insert>
     
     </mapper>

@@ -1,5 +1,7 @@
 package com.nuri.s4.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,5 +18,9 @@ public class NoticeFilesDAO {
 
 	public int fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
 		 return sqlSession.insert(NAMESPACE+"fileWrite", noticeFilesVO);
+	}
+	
+	public List<NoticeFilesVO> fileList(int num)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"fileList", num);
 	}
 }
