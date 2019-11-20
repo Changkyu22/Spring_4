@@ -27,8 +27,25 @@
     		update notice set title=#{title}, contents=#{contents} where num=#{num}
     	</update>
     	
-    	<select id="boardSelect" parameterType="noticeVO" resultType="noticeVO">
-    		select * from notice where num = #{num}
+    	<resultMap type="noticeVO" id="boardFile">
+    		<id property="num" column="num"/>
+    		<result property="title" column="title" />
+    		<result property="writer" column="writer"/>
+    		<result property="contents" column="contents"/>
+    		<result property="reg_date" column="reg_date"/>
+    		<result property="hit" column="hit"/>
+    		<collection property="files" javaType="java.util.List" ofType="NoticeFilesVO">
+    			<id property="fnum" column="fnum" />
+    			<result property="fname" column="fname"/>
+    			<result property="oname" column="oname"/>
+    		</collection>
+    	</resultMap>
+    	
+    	<select id="boardSelect" parameterType="noticeVO" resultMap="boardFile">
+    		select n.*, nf.fnum, nf.fname, nf.oname
+			from notice n full outer join noticefiles nf
+			on n.num = nf.num
+			where n.num = #{num}
     	</select>
     
     

@@ -38,14 +38,14 @@ public class BoardNoticeService implements BoardService {
 
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
-		boardVO = boardNoticeDAO.boardSelect(boardVO);
-		BoardNoticeVO boardNoticeVO = (BoardNoticeVO)boardVO;
+		// boardVO = boardNoticeDAO.boardSelect(boardVO);
+		// BoardNoticeVO boardNoticeVO = (BoardNoticeVO)boardVO;
 		
-		List<NoticeFilesVO> ar = noticeFilesDAO.fileList(boardVO.getNum());
+		// List<NoticeFilesVO> ar = noticeFilesDAO.fileList(boardVO.getNum());
 		
-		boardNoticeVO.setFiles(ar); 
+		// boardNoticeVO.setFiles(ar); 
 		
-		return boardNoticeVO;
+		return boardNoticeDAO.boardSelect(boardVO);
 	}
 
 	@Override

@@ -8,7 +8,7 @@
     		insert into noticefiles values(files_seq.nextval, #{num}, #{fname}, #{oname})
     	</insert>
     	
-    	<select id="fileList" parameterType="Integer" resultType="NoticeFilesVO">
-    		select * from noticefiles where num = #{num}
-    	</select>
+<!--     	<select id="fileList" parameterType="Integer" resultType="NoticeFilesVO"> -->
+<!--     		select * from noticefiles where num = #{num} -->
+<!--     	</select> -->
     </mapper>
