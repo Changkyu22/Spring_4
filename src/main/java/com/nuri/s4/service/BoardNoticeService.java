@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nuri.s4.dao.BoardNoticeDAO;
+import com.nuri.s4.dao.NoticeFilesDAO;
 import com.nuri.s4.model.BoardVO;
+import com.nuri.s4.model.NoticeFilesVO;
 import com.nuri.s4.util.FileSaver;
 import com.nuri.s4.util.Pager;
 
@@ -18,6 +20,13 @@ public class BoardNoticeService implements BoardService {
 
 	@Inject
 	private BoardNoticeDAO boardNoticeDAO;
+	
+	@Inject
+	private FileSaver fs;
+	
+	@Inject
+	private NoticeFilesDAO noticeFilesDAO;
+	
 	
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {
@@ -32,18 +41,21 @@ public class BoardNoticeService implements BoardService {
 	}
 
 	@Override
-	public int boardWrite(BoardVO boardVO, HttpSession session) throws Exception {
+	public int boardWrite(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception {
 		// server HDD save
 		// 1. realPath
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
-		System.out.println(realPath);
-		
-		FileSaver fs = new FileSaver();
-		String fileName = fs.save(realPath, boardVO.getFile());
-		boardVO.setFileName(fileName);
-		boardVO.setOriginalName(boardVO.getFile().getOriginalFilename());
-		System.out.println(fileName);
-		return boardNoticeDAO.boardWrite(boardVO);
+		int result = boardNoticeDAO.boardWrite(boardVO);
+		System.out.println(boardVO.getNum());
+		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+//		for(MultipartFile multipartFile : file) {
+//			
+//			String fileName = fs.save(realPath, multipartFile);
+//			noticeFilesVO.setFname(fileName);
+//			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
+//			noticeFilesDAO.fileWrite(noticeFilesVO);
+//		}
+		return result;
 	}
 
 	@Override

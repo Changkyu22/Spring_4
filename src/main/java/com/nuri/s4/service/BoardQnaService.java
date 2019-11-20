@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nuri.s4.dao.BoardQnaDAO;
 import com.nuri.s4.model.BoardQnaVO;
@@ -36,7 +37,7 @@ public class BoardQnaService implements BoardService {
 	}
 
 	@Override
-	public int boardWrite(BoardVO boardVO, HttpSession session) throws Exception {
+	public int boardWrite(BoardVO boardVO, MultipartFile file) throws Exception {
 		return boardQnaDAO.boardWrite(boardVO);
 	}
 

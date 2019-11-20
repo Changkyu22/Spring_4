@@ -1,5 +1,6 @@
 package com.nuri.s4.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -99,8 +100,11 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeWrite", method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardVO boardVO, HttpSession session)throws Exception{
-		int result = boardNoticeService.boardWrite(boardVO, session);
+	public ModelAndView boardWrite(BoardVO boardVO, MultipartFile [] file, HttpSession session)throws Exception{
+		for(int i=0; i<file.length; i++) {
+			System.out.println(file[i].getOriginalFilename());
+		}
+		int result = boardNoticeService.boardWrite(boardVO, file, session);
 		ModelAndView mv = new ModelAndView();
 		if(result>0) {
 			mv.setViewName("redirect:./noticeList");

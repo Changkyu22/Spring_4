@@ -37,7 +37,7 @@
 	   		</div>
 			
 			<div id="files">	   		
-		    	<div class="form-group">
+		    	<div class="form-group" title="parent" id="a1">
 	      			<label class="control-label col-sm-2" for="file">File:</label>
 	      			<div class="col-sm-9">
 	      				<input type="file" class="form-control" id="file" name="file">
@@ -78,9 +78,21 @@
 				alert("del");	
 			});
 			
-			$('#frm').on('click', '.del', function() {
-				$(this).closest($('.form-group')).remove();
+			
+			// 1. closest 사용
+// 			$('#frm').on('click', '.del', function() {
+// 				$(this).closest($('.form-group')).remove();
+// 				count--;
+// 			});
+			
+			$('#files').on("click",".del", function() {
+			// 2. parent 사용
+// 				$(this).parent().parent().remove();
+			
+			// 3. parents 사용
+				$(this).parents(".form-group").remove();
 				count--;
+				
 			});
 		
 		</script>
