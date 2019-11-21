@@ -29,6 +29,7 @@ public class NoticeController {
 	
 	@Inject
 	private BoardNoticeService boardNoticeService;
+
 	
 	@GetMapping(value = "fileDown")
 	public ModelAndView fileDown(NoticeFilesVO noticeFilesVO) throws Exception{
@@ -40,15 +41,14 @@ public class NoticeController {
 		return mv;
 		
 	}
-	
-	public ModelAndView fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		int result = boardNoticeService.fileWrite(noticeFilesVO);
-		mv.setViewName("common/common_ajaxResult");
-		mv.addObject("result", result);
-		return mv;
-		
-	}
+//	
+//	public ModelAndView fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
+//		ModelAndView mv = new ModelAndView();
+//		int result = boardNoticeService.fileWrite(noticeFilesVO);
+//		mv.setViewName("common/common_ajaxResult");
+//		mv.addObject("result", result);
+//		return mv;
+//	}
 	
 	@PostMapping(value = "fileDelete")
 	public ModelAndView fileDelete(NoticeFilesVO noticeFilesVO)throws Exception{
@@ -70,7 +70,7 @@ public class NoticeController {
 			mv.addObject("msg", "Delete Fail");
 			mv.addObject("path", "./noticeList");
 		}
-		return mv;
+		return mv;	
 	}
 	
 	@RequestMapping(value = "noticeUpdate", method = RequestMethod.GET)
@@ -86,6 +86,7 @@ public class NoticeController {
 		mv.setViewName("board/boardUpdate");
 		return mv;
 	}
+	
 	@RequestMapping(value = "noticeUpdate", method = RequestMethod.POST)
 	public ModelAndView boardUpdate2(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -126,6 +127,7 @@ public class NoticeController {
 		mv.setViewName("board/boardList");
 		return mv;
 	}
+	
 	@RequestMapping(value = "noticeWrite", method = RequestMethod.GET)
 	public ModelAndView boardWrite()throws Exception{
 		ModelAndView mv = new ModelAndView();

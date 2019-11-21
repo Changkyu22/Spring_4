@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nuri.s4.model.MemberVO;
+import com.nuri.s4.model.QnaFilesVO;
 import com.nuri.s4.service.MemberServiceImpl;
 
 @Controller
@@ -23,6 +24,7 @@ public class MemberController {
 	
 	@Inject
 	private MemberServiceImpl memberServiceImpl;
+	
 	
 	@GetMapping(value = "memberDelete")
 	public ModelAndView memberDelete(MemberVO memberVO, HttpSession httpSession) throws Exception{

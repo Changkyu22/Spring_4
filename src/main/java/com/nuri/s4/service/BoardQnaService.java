@@ -28,6 +28,14 @@ public class BoardQnaService implements BoardService {
 	@Inject
 	private FileSaver fs;
 	
+	public int fileDelete(QnaFilesVO qnaFilesVO)throws Exception{
+		return qnaFilesDAO.fileDelete(qnaFilesVO);
+	}
+	
+	public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO)throws Exception{
+		return qnaFilesDAO.fileSelect(qnaFilesVO);
+	}
+	
 	public int boardReply(BoardVO boardVO) throws Exception{
 		boardQnaDAO.boardReplyUpdate(boardVO);
 		return boardQnaDAO.boardReply(boardVO);
@@ -68,7 +76,18 @@ public class BoardQnaService implements BoardService {
 	}
 
 	@Override
-	public int boardUpdate(BoardVO boardVO) throws Exception {
+	public int boardUpdate(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception {
+		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
+		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		int result = boardQnaDAO.boardUpdate(boardVO);
+		for(MultipartFile multipartFile : file) {
+			String fileName = fs.save2(realPath, multipartFile);
+			qnaFilesVO.setFname(fileName);
+			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
+			qnaFilesVO.setNum(boardVO.getNum());
+			qnaFilesDAO.fileWrite(qnaFilesVO);
+		}
+		
 		return boardQnaDAO.boardUpdate(boardVO);
 	}
 

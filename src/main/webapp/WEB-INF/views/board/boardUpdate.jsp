@@ -20,7 +20,7 @@
 <c:import url="../layout/nav.jsp" />
 	<div class="container">
 	  <h2>${fn:toUpperCase(PageName)} Update Page</h2>
-	  <form action="./${board}Update.notice?num=${dto.num}" method="post" id="frm" onsubmit=true enctype="multipart/form-data">
+	  <form action="./${board}Update?num=${dto.num}" method="post" id="frm" onsubmit=true enctype="multipart/form-data">
 	  	<input type="hidden" name="num" value="${dto.num}">
 	  	
 	    <div class="form-group">
