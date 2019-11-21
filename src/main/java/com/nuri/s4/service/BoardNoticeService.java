@@ -28,6 +28,13 @@ public class BoardNoticeService implements BoardService {
 	@Inject
 	private NoticeFilesDAO noticeFilesDAO;
 	
+	public int fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
+		return noticeFilesDAO.fileWrite(noticeFilesVO);
+	}
+	
+	public int fileDelete(NoticeFilesVO noticeFilesVO)throws Exception {
+		return noticeFilesDAO.fileDelete(noticeFilesVO);
+	}
 	
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {

@@ -38,24 +38,28 @@
   		</update>
   		
   		<resultMap type="QnaVO" id="boardFile">
-  			<id property="num" column="num" />
-  			<result property="title" column="title"/>
-  			<result property="writer" column="writer"/>
-  			<result property="contents" column="contents"/>
-  			<result property="reg_date" column="reg_date"/>
-  			<result property="hit" column="hit"/>
-  			<collection property="files" javaType="java.util.List" ofType="QnaFilesVO">
-  				<id property="fnum" column="fnum"/>
-  				<result property="fname" column="fname"/>
-  				<result property="oname" column="oname"/>
-  			</collection>
-  		</resultMap>
+  			<id property="num" column="num"/>
+  			<result property="title" column="title" />
+    		<result property="writer" column="writer"/>
+    		<result property="contents" column="contents"/>
+    		<result property="reg_date" column="reg_date"/>
+    		<result property="hit" column="hit"/>
+    		<result property="ref" column="ref"/>
+    		<result property="step" column="step"/>
+    		<result property="depth" column="depth"/>
+    		<collection property="files" javaType="java.util.List" ofType="QnaFilesVO" resultMap="fileResult"></collection>
+    	</resultMap>
+    	
+    	<resultMap type="QnaFilesVO" id="fileResult">
+    		<id property="fnum" column="fnum"/>
+    		<result property="fname" column="fname"/>
+    		<result property="oname" column="oname"/>
+    	</resultMap>
   			
   		<select id="boardSelect" resultMap="boardFile" parameterType="QnaVO">
-  			select q.*, qf.fnum, qf.fname, qf.oname
-			from qna q full outer join qnafiles qf
-			on q.num = qf.num
-			where q.num = #{num}
+  			select * from qna Q full outer join qnaFiles QF
+  			on Q.num = QF.num
+			where Q.num = #{num}
   		</select>
   
       	<select id="boardCount" resultType="java.lang.Integer" parameterType="Pager">

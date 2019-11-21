@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nuri.s4.model.BoardNoticeVO;
 import com.nuri.s4.model.BoardQnaVO;
 import com.nuri.s4.model.BoardVO;
+import com.nuri.s4.model.NoticeFilesVO;
 import com.nuri.s4.service.BoardNoticeService;
 import com.nuri.s4.util.Pager;
 
@@ -26,6 +28,24 @@ public class NoticeController {
 	
 	@Inject
 	private BoardNoticeService boardNoticeService;
+	
+	public ModelAndView fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = boardNoticeService.fileWrite(noticeFilesVO);
+		mv.setViewName("common/common_ajaxResult");
+		mv.addObject("result", result);
+		return mv;
+		
+	}
+	
+	@PostMapping(value = "fileDelete")
+	public ModelAndView fileDelete(NoticeFilesVO noticeFilesVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = boardNoticeService.fileDelete(noticeFilesVO);
+		mv.setViewName("common/common_ajaxResult");
+		mv.addObject("result", result);
+		return mv;
+	}
 	
 	@RequestMapping(value = "noticeDelete", method = RequestMethod.GET)
 	public ModelAndView boardDelete(BoardVO boardVO) throws Exception{
@@ -45,6 +65,9 @@ public class NoticeController {
 	public ModelAndView boardUpdate(BoardVO boardVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		boardVO = boardNoticeService.boardSelect(boardVO);
+		BoardNoticeVO noticeVO = (BoardNoticeVO)boardVO;
+		int size = noticeVO.getFiles().size();
+		mv.addObject("size", size);
 		mv.addObject("PageName","Notice Board");
 		mv.addObject("board", "notice");
 		mv.addObject("dto", boardVO);
@@ -101,9 +124,9 @@ public class NoticeController {
 	
 	@RequestMapping(value = "noticeWrite", method = RequestMethod.POST)
 	public ModelAndView boardWrite(BoardVO boardVO, MultipartFile [] file, HttpSession session)throws Exception{
-		for(int i=0; i<file.length; i++) {
-			System.out.println(file[i].getOriginalFilename());
-		}
+//		for(int i=0; i<file.length; i++) {
+//			System.out.println(file[i].getOriginalFilename());
+//		}
 		int result = boardNoticeService.boardWrite(boardVO, file, session);
 		ModelAndView mv = new ModelAndView();
 		if(result>0) {
