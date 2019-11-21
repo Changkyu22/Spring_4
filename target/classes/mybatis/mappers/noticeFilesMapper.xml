@@ -5,7 +5,13 @@
   
     <mapper namespace="noticeFilesMapper">
     
-    	
+<!--     	<update id="fileUpdate" parameterType="NoticeFilesVO"> -->
+<!--     		update noticeFiles set fnum=#{fnum}, fname=#{fname}, oname=#{oname} where num=#{num} -->
+<!--     	</update> -->
+	
+		<select id="fileSelect" resultType="NoticeFilesVO" parameterType="NoticeFilesVO">
+			select * from noticefiles where fnum = #{fnum}
+		</select>
     	
     	<delete id="fileDelete" parameterType="NoticeFilesVO">
     		delete noticeFiles where fnum=#{fnum}

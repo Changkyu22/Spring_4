@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,17 @@ public class NoticeController {
 	
 	@Inject
 	private BoardNoticeService boardNoticeService;
+	
+	@GetMapping(value = "fileDown")
+	public ModelAndView fileDown(NoticeFilesVO noticeFilesVO) throws Exception{
+		noticeFilesVO = boardNoticeService.fileSelect(noticeFilesVO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("file", noticeFilesVO);
+		mv.setViewName("fileDown");
+		mv.addObject("board", "notice");
+		return mv;
+		
+	}
 	
 	public ModelAndView fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -75,9 +87,9 @@ public class NoticeController {
 		return mv;
 	}
 	@RequestMapping(value = "noticeUpdate", method = RequestMethod.POST)
-	public ModelAndView boardUpdate2(BoardVO boardVO) throws Exception{
+	public ModelAndView boardUpdate2(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = boardNoticeService.boardUpdate(boardVO);
+		int result = boardNoticeService.boardUpdate(boardVO, file, session);
 		if(result>0) {
 			mv.setViewName("redirect:./noticeList");
 		}else {
@@ -93,6 +105,7 @@ public class NoticeController {
 	public ModelAndView boardSelect(BoardVO boardVO) throws Exception{
 		boardVO = boardNoticeService.boardSelect(boardVO);
 		ModelAndView mv = new ModelAndView();
+		boardVO.setContents(boardVO.getContents().replace("\r\n", "<br>"));
 		mv.addObject("dto", boardVO);
 		mv.addObject("PageName","Notice Board");
 		mv.addObject("board", "notice");

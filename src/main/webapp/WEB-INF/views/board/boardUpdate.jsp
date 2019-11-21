@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +19,8 @@
 <body>
 <c:import url="../layout/nav.jsp" />
 	<div class="container">
-	  <h2>${PageName} Update Page</h2>
-	  <form action="./${board}Update.notice?num=${dto.num}" method="post" id="frm" onsubmit=true>
+	  <h2>${fn:toUpperCase(PageName)} Update Page</h2>
+	  <form action="./${board}Update.notice?num=${dto.num}" method="post" id="frm" onsubmit=true enctype="multipart/form-data">
 	  	<input type="hidden" name="num" value="${dto.num}">
 	  	
 	    <div class="form-group">
@@ -66,7 +67,7 @@
 	 
 	 <script type="text/javascript">
 	 	var files = $("#files").html();
-	 	var count = ${size};
+	 	var count = ${fn:length(dto.files)};
 	 	$("#files").empty();
 	 	
 	 	// file 추가

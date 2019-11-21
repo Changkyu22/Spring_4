@@ -28,6 +28,10 @@ public class BoardNoticeService implements BoardService {
 	@Inject
 	private NoticeFilesDAO noticeFilesDAO;
 	
+	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO)throws Exception {
+		return noticeFilesDAO.fileSelect(noticeFilesVO);
+	}
+	
 	public int fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
 		return noticeFilesDAO.fileWrite(noticeFilesVO);
 	}
@@ -64,17 +68,31 @@ public class BoardNoticeService implements BoardService {
 		int result = boardNoticeDAO.boardWrite(boardVO);
 		
 		for(MultipartFile multipartFile : file) {
-			String fileName = fs.save(realPath, multipartFile);
-			noticeFilesVO.setNum(boardVO.getNum());
-			noticeFilesVO.setFname(fileName);
-			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
-			noticeFilesDAO.fileWrite(noticeFilesVO);
+			if(multipartFile.getOriginalFilename() != "") {
+				String fileName = fs.save(realPath, multipartFile);
+				noticeFilesVO.setNum(boardVO.getNum());
+				noticeFilesVO.setFname(fileName);
+				noticeFilesVO.setOname(multipartFile.getOriginalFilename());
+				noticeFilesDAO.fileWrite(noticeFilesVO);
+			}
 		}
 		return result;
 	}
 
 	@Override
-	public int boardUpdate(BoardVO boardVO) throws Exception {
+	public int boardUpdate(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception {
+		
+		String realPath = session.getServletContext().getRealPath("resource/upload/notice");
+		int result = boardNoticeDAO.boardUpdate(boardVO);
+		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+		
+		for(MultipartFile multipartFile : file) {
+			String fileName = fs.save2(realPath, multipartFile);
+			noticeFilesVO.setNum(boardVO.getNum());
+			noticeFilesVO.setFname(fileName);
+			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
+			noticeFilesDAO.fileWrite(noticeFilesVO);
+		}
 		return boardNoticeDAO.boardUpdate(boardVO);
 	}
 

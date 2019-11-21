@@ -35,10 +35,9 @@
 		</table>
 		<div>
 			<c:forEach items="${dto.files}" var="file">
-				<a href="../resources/upload/${board}/${file.fname}">${file.oname}</a>
+				<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>
 			</c:forEach>
 		</div>
-		
 		
 		<div class="container">
  			<form>
@@ -56,6 +55,8 @@
   			<a href="./${board}List.notice?num=${requestScope.dto.num}" class="btn btn-default">List</a>
   			
   		</div>
+  		
+		
 	</div>
 	
 </body>
