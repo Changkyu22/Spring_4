@@ -9,16 +9,16 @@
 <!--     		update noticeFiles set fnum=#{fnum}, fname=#{fname}, oname=#{oname} where num=#{num} -->
 <!--     	</update> -->
 	
-		<select id="fileSelect" resultType="NoticeFilesVO" parameterType="NoticeFilesVO">
+		<select id="fileSelect" resultType="FilesVO" parameterType="FilesVO">
 			select * from noticefiles where fnum = #{fnum}
 		</select>
     	
-    	<delete id="fileDelete" parameterType="NoticeFilesVO">
+    	<delete id="fileDelete" parameterType="FilesVO">
     		delete noticeFiles where fnum=#{fnum}
     	</delete>
     
     
-    	<insert id="fileWrite" parameterType="NoticeFilesVO">
+    	<insert id="fileWrite" parameterType="FilesVO">
     		insert into noticefiles values(files_seq.nextval, #{num}, #{fname}, #{oname})
     	</insert>
     	

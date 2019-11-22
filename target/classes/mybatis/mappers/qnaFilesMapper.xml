@@ -9,11 +9,11 @@
     		delete qnafiles where fnum = #{fnum}
     	</delete>
     
-    	<select id="fileSelect" parameterType="QnaFilesVO" resultType="QnaFilesVO">
+    	<select id="fileSelect" parameterType="FilesVO" resultType="FilesVO">
     		select * from qnafiles where fnum = #{fnum}
     	</select>
     	
-    	<insert id="fileWrite" parameterType="QnaFilesVO">
+    	<insert id="fileWrite" parameterType="FilesVO">
     		insert into qnafiles values(files_seq.nextval, #{num}, #{fname}, #{oname})
     	</insert>
     	

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nuri.s4.model.BoardQnaVO;
 import com.nuri.s4.model.BoardVO;
-import com.nuri.s4.model.QnaFilesVO;
+import com.nuri.s4.model.FilesVO;
 import com.nuri.s4.service.BoardQnaService;
 import com.nuri.s4.util.Pager;
 
@@ -28,10 +28,10 @@ public class QnaController {
 	private BoardQnaService boardQnaService;
 	
 	@GetMapping(value = "fileDown2")
-	public ModelAndView fileDown(QnaFilesVO qnaFilesVO)throws Exception{
+	public ModelAndView fileDown(FilesVO filesVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		qnaFilesVO = boardQnaService.fileSelect(qnaFilesVO);
-		mv.addObject("file", qnaFilesVO);
+		filesVO = boardQnaService.fileSelect(filesVO);
+		mv.addObject("file", filesVO);
 		mv.addObject("board", "qna");
 		mv.setViewName("fileDown2");
 		return mv;
@@ -39,9 +39,9 @@ public class QnaController {
 
 	
 	@PostMapping(value = "fileDelete")
-	public ModelAndView fileDelete(QnaFilesVO qnaFilesVO)throws Exception{
+	public ModelAndView fileDelete(FilesVO filesVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = boardQnaService.fileDelete(qnaFilesVO);
+		int result = boardQnaService.fileDelete(filesVO);
 		mv.setViewName("common/common_ajaxResult");
 		mv.addObject("result", result);
 		

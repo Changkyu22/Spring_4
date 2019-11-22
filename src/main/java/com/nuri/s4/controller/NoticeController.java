@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nuri.s4.model.BoardNoticeVO;
 import com.nuri.s4.model.BoardQnaVO;
 import com.nuri.s4.model.BoardVO;
-import com.nuri.s4.model.NoticeFilesVO;
+import com.nuri.s4.model.FilesVO;
 import com.nuri.s4.service.BoardNoticeService;
 import com.nuri.s4.util.Pager;
 
@@ -29,29 +29,52 @@ public class NoticeController {
 	
 	@Inject
 	private BoardNoticeService boardNoticeService;
+	
+	@PostMapping(value = "summerFileDelete")
+	public ModelAndView summerFileDelete(String file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boolean check = boardNoticeService.summerFileDelete(file, session);
+		String result = "Delete Fail";
+		if(check) {
+			result = "Delete Success";
+		}
+		mv.setViewName("common/common_ajaxResult");
+		mv.addObject("result", result);
+		
+		return mv;
+	}
+	
+	@PostMapping(value = "summerFile")
+	public ModelAndView summerFile(MultipartFile file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		String fileName = boardNoticeService.summerFile(file, session);
+		mv.setViewName("common/common_ajaxResult");
+		mv.addObject("result", fileName);
+		return mv;
+
+	}
 
 	
 	@GetMapping(value = "fileDown")
-	public ModelAndView fileDown(NoticeFilesVO noticeFilesVO) throws Exception{
-		noticeFilesVO = boardNoticeService.fileSelect(noticeFilesVO);
+	public ModelAndView fileDown(FilesVO filesVO) throws Exception{
+		filesVO = boardNoticeService.fileSelect(filesVO);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("file", noticeFilesVO);
+		mv.addObject("file", filesVO);
 		mv.setViewName("fileDown");
 		mv.addObject("board", "notice");
 		return mv;
-		
 	}
-//	
-//	public ModelAndView fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
-//		ModelAndView mv = new ModelAndView();
-//		int result = boardNoticeService.fileWrite(noticeFilesVO);
-//		mv.setViewName("common/common_ajaxResult");
-//		mv.addObject("result", result);
-//		return mv;
-//	}
+	
+	public ModelAndView fileWrite(FilesVO filesVO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = boardNoticeService.fileWrite(filesVO);
+		mv.setViewName("common/common_ajaxResult");
+		mv.addObject("result", result);
+		return mv;
+	}
 	
 	@PostMapping(value = "fileDelete")
-	public ModelAndView fileDelete(NoticeFilesVO noticeFilesVO)throws Exception{
+	public ModelAndView fileDelete(FilesVO noticeFilesVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		int result = boardNoticeService.fileDelete(noticeFilesVO);
 		mv.setViewName("common/common_ajaxResult");

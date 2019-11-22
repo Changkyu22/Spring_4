@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nuri.s4.dao.BoardQnaDAO;
+import com.nuri.s4.dao.NoticeFilesDAO;
 import com.nuri.s4.dao.QnaFilesDAO;
 import com.nuri.s4.model.BoardQnaVO;
 import com.nuri.s4.model.BoardVO;
-import com.nuri.s4.model.QnaFilesVO;
+import com.nuri.s4.model.FilesVO;
 import com.nuri.s4.util.FileSaver;
 import com.nuri.s4.util.Pager;
 
@@ -23,17 +24,17 @@ public class BoardQnaService implements BoardService {
 	private BoardQnaDAO boardQnaDAO;
 	
 	@Inject
-	private QnaFilesDAO qnaFilesDAO;
+	private QnaFilesDAO filesDAO;
 	
 	@Inject
 	private FileSaver fs;
 	
-	public int fileDelete(QnaFilesVO qnaFilesVO)throws Exception{
-		return qnaFilesDAO.fileDelete(qnaFilesVO);
+	public int fileDelete(FilesVO filesVO)throws Exception{
+		return filesDAO.fileDelete(filesVO);
 	}
 	
-	public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO)throws Exception{
-		return qnaFilesDAO.fileSelect(qnaFilesVO);
+	public FilesVO fileSelect(FilesVO filesVO)throws Exception{
+		return filesDAO.fileSelect(filesVO);
 	}
 	
 	public int boardReply(BoardVO boardVO) throws Exception{
@@ -62,15 +63,15 @@ public class BoardQnaService implements BoardService {
 	@Override
 	public int boardWrite(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
-		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		FilesVO filesVO = new FilesVO();
 		int result = boardQnaDAO.boardWrite(boardVO);
 		
 		for(MultipartFile multipartFile : file) {
 			String fileName = fs.save2(realPath, multipartFile);
-			qnaFilesVO.setFname(fileName);
-			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
-			qnaFilesVO.setNum(boardVO.getNum());
-			qnaFilesDAO.fileWrite(qnaFilesVO);
+			filesVO.setFname(fileName);
+			filesVO.setOname(multipartFile.getOriginalFilename());
+			filesVO.setNum(boardVO.getNum());
+			filesDAO.fileWrite(filesVO);
 		}
 		return result;
 	}
@@ -78,14 +79,14 @@ public class BoardQnaService implements BoardService {
 	@Override
 	public int boardUpdate(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
-		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		FilesVO filesVO = new FilesVO();
 		int result = boardQnaDAO.boardUpdate(boardVO);
 		for(MultipartFile multipartFile : file) {
 			String fileName = fs.save2(realPath, multipartFile);
-			qnaFilesVO.setFname(fileName);
-			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
-			qnaFilesVO.setNum(boardVO.getNum());
-			qnaFilesDAO.fileWrite(qnaFilesVO);
+			filesVO.setFname(fileName);
+			filesVO.setOname(multipartFile.getOriginalFilename());
+			filesVO.setNum(boardVO.getNum());
+			filesDAO.fileWrite(filesVO);
 		}
 		
 		return boardQnaDAO.boardUpdate(boardVO);

@@ -59,8 +59,54 @@
 			});
 		
 			$("#contents").summernote({
-				height: 300
+				height: 300,
+				callbacks:{
+					onImageUpload: function(files, editor) {
+						uploadFile(files[0],this);
+					}, // upload end
+					onMediaDelete: function(files, editor) {
+						deleteFile(files[0], this);
+					} // delete end
+					
+				} // callback enad
 			});
+			
+			function deleteFile(file, editor) {
+				var fileName = $(file).attr("src");
+				fileName = fileName.substring(fileName.lastIndexOf("/")+1);
+				$.ajax({
+					type:"POST",
+					url:"./summerFileDelete",
+					data:{
+						file:fileName
+					},
+					success:function(data){
+						console.log(data);
+					}
+					
+				});
+			}
+			
+			
+			function uploadFile(file, editor) {
+				var formData = new FormData();
+				formData.append('file', file); // 파라미터 추가
+				$.ajax({
+					data:formData,				
+					type:"POST",
+					url:"./summerFile",
+					enctype:"multipart/form-data",
+					contentType:false,
+					cache:false,
+					processData:false,
+					success:function(data){
+						data = data.trim();
+						data = '../resources/upload/summerFile/'+data;
+						$(editor).summernote('insertImage', data);
+					}
+					
+				})
+			}
 			
 		
 			var files = $('#files').html();

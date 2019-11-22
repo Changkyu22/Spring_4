@@ -12,6 +12,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class FileSaver {
 	
+	// File Delete
+	public boolean fileDelete(String realPath, String fileName) throws Exception{
+		File file = new File(realPath, fileName);
+		
+		boolean check = false;
+		if(file.exists()) {
+			check = file.delete();
+		}
+		return check;
+	}
+	
 	// 3. Io Stream 사용
 	public String save3(String realPath, MultipartFile multipartFile)throws Exception{
 		File file = new File(realPath);
@@ -26,6 +37,7 @@ public class FileSaver {
 		fo.write(multipartFile.getBytes());
 		fo.close();
 		
+		System.out.println(realPath);
 		return fileName;
 	}
 	
@@ -43,6 +55,7 @@ public class FileSaver {
 		file = new File(realPath, fileName);
 		multipartFile.transferTo(file);
 		
+		System.out.println(realPath);
 		return fileName;
 		
 	}
@@ -61,6 +74,7 @@ public class FileSaver {
 		file = new File(realPath, String.valueOf(fileName));
 		FileCopyUtils.copy(multipartFile.getBytes(), file);
 		
+		System.out.println(realPath);
 		return fileName;
 	}
 }

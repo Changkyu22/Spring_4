@@ -12,7 +12,7 @@ import com.nuri.s4.dao.BoardNoticeDAO;
 import com.nuri.s4.dao.NoticeFilesDAO;
 import com.nuri.s4.model.BoardNoticeVO;
 import com.nuri.s4.model.BoardVO;
-import com.nuri.s4.model.NoticeFilesVO;
+import com.nuri.s4.model.FilesVO;
 import com.nuri.s4.util.FileSaver;
 import com.nuri.s4.util.Pager;
 
@@ -28,15 +28,25 @@ public class BoardNoticeService implements BoardService {
 	@Inject
 	private NoticeFilesDAO noticeFilesDAO;
 	
-	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO)throws Exception {
+	public boolean summerFileDelete(String file, HttpSession session) throws Exception{
+		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
+		return fs.fileDelete(realPath, file);
+	}
+	
+	public String summerFile(MultipartFile file, HttpSession session) throws Exception{
+		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
+		return fs.save2(realPath, file);
+	}
+	
+	public FilesVO fileSelect(FilesVO noticeFilesVO)throws Exception {
 		return noticeFilesDAO.fileSelect(noticeFilesVO);
 	}
 	
-	public int fileWrite(NoticeFilesVO noticeFilesVO) throws Exception{
+	public int fileWrite(FilesVO noticeFilesVO) throws Exception{
 		return noticeFilesDAO.fileWrite(noticeFilesVO);
 	}
 	
-	public int fileDelete(NoticeFilesVO noticeFilesVO)throws Exception {
+	public int fileDelete(FilesVO noticeFilesVO)throws Exception {
 		return noticeFilesDAO.fileDelete(noticeFilesVO);
 	}
 	
@@ -64,7 +74,7 @@ public class BoardNoticeService implements BoardService {
 		// server HDD save
 		// 1. realPath
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
-		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+		FilesVO noticeFilesVO = new FilesVO();
 		int result = boardNoticeDAO.boardWrite(boardVO);
 		
 		for(MultipartFile multipartFile : file) {
@@ -84,7 +94,7 @@ public class BoardNoticeService implements BoardService {
 		
 		String realPath = session.getServletContext().getRealPath("resource/upload/notice");
 		int result = boardNoticeDAO.boardUpdate(boardVO);
-		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+		FilesVO noticeFilesVO = new FilesVO();
 		
 		for(MultipartFile multipartFile : file) {
 			String fileName = fs.save2(realPath, multipartFile);
