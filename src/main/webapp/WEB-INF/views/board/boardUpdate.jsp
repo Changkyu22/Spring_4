@@ -7,17 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<c:import url="../layout/bootStrap.jsp" />
+<c:import url="../layout/summerNote.jsp" />
 </head>
 <body>
 <c:import url="../layout/nav.jsp" />
+
 	<div class="container">
 	  <h2>${fn:toUpperCase(PageName)} Update Page</h2>
 	  <form action="./${board}Update?num=${dto.num}" method="post" id="frm" onsubmit=true enctype="multipart/form-data">
@@ -35,7 +30,7 @@
 	    
 	    <div class="form-group">
       		<label for="comment">Contents:</label>
-      		<textarea class="form-control" rows="5" id="contents" name="contents">${dto.contents}</textarea>
+      		<textarea class="form-control" rows="5" id="contents" placeholder="Enter contents" name="contents"></textarea>
    		</div>
    		
 		<div id="files">	   		
@@ -66,6 +61,12 @@
 	 </div>
 	 
 	 <script type="text/javascript">
+	 	$("#contents").summernote({
+	 		height:300
+	 	});
+	 	
+	 	$("#contents").summernote('code', '${dto.contents}');
+	 	
 	 	var files = $("#files").html();
 	 	var count = ${fn:length(dto.files)};
 	 	$("#files").empty();

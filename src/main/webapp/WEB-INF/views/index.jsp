@@ -4,14 +4,20 @@
 <html>
 <head>
 	<title>Home</title>
-<c:import url="./layout/bootStrap.jsp"></c:import>
+<c:import url="./layout/bootStrap.jsp" />
+<c:import url="./layout/summerNote.jsp" />
 </head>
 <body>
-<c:import url="./layout/nav.jsp"></c:import>
+<c:import url="./layout/nav.jsp" />
 <h1>
 	Hello world!  
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+
+<div id="editor"></div>
+<script type="text/javascript">
+	$("#editor").summernote();
+</script>
 </body>
 </html>

@@ -6,14 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<c:import url="../layout/bootStrap.jsp"></c:import>
+<c:import url="../layout/summerNote.jsp"></c:import>
 </head>
 <body>
 	<c:import url="../layout/nav.jsp" />
@@ -31,9 +26,10 @@
 		      <input type="text" class="form-control" id="writer" placeholder="Enter your ID or name" name="writer" value="${dto.writer}">
 		    </div>
 		    
-		    <div class="form-group">
+		    <div class="form-group" id="editor">
 	      		<label for="comment">Contents:</label>
 	      		<textarea class="form-control" rows="5" id="contents" placeholder="Enter contents" name="contents">${dto.contents}</textarea>
+	      		
 	   		</div>
 			
 			<div id="files">	   		
@@ -57,6 +53,16 @@
 		</div>
 		
 		<script type="text/javascript">
+		
+			$("#test").click(function() {
+				alert($("#contents").summernote('code'));
+			});
+		
+			$("#contents").summernote({
+				height: 300
+			});
+			
+		
 			var files = $('#files').html();
 			$('#files').empty();
 			var count = 0;

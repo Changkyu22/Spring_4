@@ -43,7 +43,7 @@
  			<form>
     		<div class="form-group">
       			<label for="comment">Contents:</label>
-      			<textarea class="form-control" rows="5" id="comment" >${dto.contents}</textarea>
+      			<div class="well" id="contents">${dto.contents}</div>
     		</div>
   			</form>
   			
