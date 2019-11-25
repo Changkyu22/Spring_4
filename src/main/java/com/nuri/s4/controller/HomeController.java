@@ -31,7 +31,13 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+		try {
+			model.addAttribute("serverTime", formattedDate );
+			String a = "abc";
+			a.charAt(10);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		return "index";
 	}
