@@ -25,6 +25,21 @@
 	
 	<dependencies>
 	
+	
+		<!-- spring-aop -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- spring-tx -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>	
+	
 		<!-- commons-io를 통해서 적용된 commons-fileupload -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
@@ -92,6 +107,13 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
+		
+			<!-- aspectjweaver -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>${org.aspectj-version}</version>
+		</dependency>
 		
 		<!-- Logging -->
 		<dependency>
