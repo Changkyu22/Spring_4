@@ -2,6 +2,7 @@ package com.nuri.s4.model;
 
 import java.sql.Date;
 
+
 public class BoardVO {
 	
 	private int num;
@@ -10,7 +11,22 @@ public class BoardVO {
 	private String contents;
 	private Date reg_date;
 	private Integer hit;
+	private String fileName;
+	private String originalName;
 	
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getOriginalName() {
+		return originalName;
+	}
+	public void setOriginalName(String originalName) {
+		this.originalName = originalName;
+	}
 	public int getNum() {
 		return num;
 	}

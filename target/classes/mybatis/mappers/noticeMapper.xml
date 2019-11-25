@@ -5,6 +5,20 @@
   
     <mapper namespace="noticeMapper">
     
+    <sql id="ds">
+    	<choose>
+			<when test="kind == 'kt'">
+				where title like '%'||#{search}||'%'
+			</when>
+			<when test="kind == 'kw'">
+				where writer like '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				where contents like	'%'||#{search}||'%'
+			</otherwise>
+		</choose>
+    </sql>
+    
     	<delete id="boardDelete" parameterType="noticeVO">
     		delete notice where num=#{num}
     	</delete>
@@ -13,48 +27,48 @@
     		update notice set title=#{title}, contents=#{contents} where num=#{num}
     	</update>
     	
-    	<select id="boardSelect" parameterType="noticeVO" resultType="noticeVO">
-    		select * from notice where num = #{num}
+    	<resultMap type="noticeVO" id="boardFile">
+    		<id property="num" column="num"/>
+    		<result property="title" column="title" />
+    		<result property="writer" column="writer"/>
+    		<result property="contents" column="contents"/>
+    		<result property="reg_date" column="reg_date"/>
+    		<result property="hit" column="hit"/>
+    		<collection property="files" javaType="java.util.List" ofType="FilesVO">
+    			<id property="fnum" column="fnum" />
+    			<result property="fname" column="fname"/>
+    			<result property="oname" column="oname"/>
+    		</collection>
+    	</resultMap>
+    	
+    	<select id="boardSelect" parameterType="noticeVO" resultMap="boardFile">
+    		select n.*, nf.fnum, nf.fname, nf.oname
+			from notice n full outer join noticefiles nf
+			on n.num = nf.num
+			where n.num = #{num}
     	</select>
     
     
       	<select id="boardCount" resultType="java.lang.Integer" parameterType="Pager">
   			select count(num) from notice 
-			<choose>
-				<when test="kind == 'kt'">
-					where title like '%'||#{search}||'%'
-				</when>
-				<when test="kind == 'kw'">
-					where writer like '%'||#{search}||'%'
-				</when>
-				<otherwise>
-					where contents like	'%'||#{search}||'%'
-				</otherwise>
-			</choose>
+			<include refid="ds"></include>
   		</select>
     
     	<select id="boardList" parameterType="Pager" resultType="NoticeVO">
 	  		select * from
 				(select N.*, rownum R from
 					(select * from notice 
-					<choose>
-						<when test="kind == 'kt'">
-							where title like '%'||#{search}||'%'
-						</when>
-						<when test="kind == 'kw'">
-							where writer like '%'||#{search}||'%'
-						</when>
-						<when test="kind == 'kc'">
-							where contents like '%'||#{search}||'%'
-						</when>
-					</choose>
+					<include refid="ds"></include>
 					order by num desc) N)
 			where R between #{startRow} and #{lastRow}
  	 	</select>
  	 	
- 	 	<insert id="boardWrite" parameterType="NoticeVO">
+ 	 	<insert id="boardWrite" parameterType="BoardVO">
+ 	 		<selectKey order="BEFORE" resultType="Integer" keyProperty="num">
+ 	 			select board_seq.nextval from dual
+ 	 		</selectKey>
  	 		insert into notice 
- 	 		values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0)
+ 	 		values(#{num}, #{title}, #{writer}, #{contents}, sysdate, 0)
  	 	</insert>
     
     </mapper>

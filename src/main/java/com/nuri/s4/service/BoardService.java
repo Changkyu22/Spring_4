@@ -2,6 +2,10 @@ package com.nuri.s4.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.nuri.s4.model.BoardVO;
 import com.nuri.s4.util.Pager;
 
@@ -14,10 +18,10 @@ public interface BoardService {
 	public BoardVO boardSelect(BoardVO boardVO)throws Exception;
 	
 	// write
-	public int boardWrite(BoardVO boardVO)throws Exception;
+	public int boardWrite(BoardVO boardVO, MultipartFile [] file, HttpSession session)throws Exception;
 	
 	// update
-	public int boardUpdate(BoardVO boardVO)throws Exception;
+	public int boardUpdate(BoardVO boardVO, MultipartFile [] file, HttpSession session)throws Exception;
 	
 	// delete
 	public int boardDelete(BoardVO boardVO)throws Exception;

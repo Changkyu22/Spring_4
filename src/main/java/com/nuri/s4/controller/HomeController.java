@@ -1,6 +1,7 @@
 package com.nuri.s4.controller;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -38,6 +39,15 @@ public class HomeController {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
+		
+		String year = "2000";
+		String month = "12";
+		String day = "24";
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, Integer.parseInt(year));
+		
+		Date d = new Date(cal.getTimeInMillis());
 		
 		return "index";
 	}

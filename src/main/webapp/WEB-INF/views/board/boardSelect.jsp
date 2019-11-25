@@ -33,20 +33,30 @@
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			<c:forEach items="${dto.files}" var="file">
+				<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>
+			</c:forEach>
+		</div>
+		
 		<div class="container">
  			<form>
     		<div class="form-group">
       			<label for="comment">Contents:</label>
-      			<textarea class="form-control" rows="5" id="comment" >${dto.contents}</textarea>
+      			<div class="well" id="contents">${dto.contents}</div>
     		</div>
   			</form>
   			
-  			<a href="./${board}Update.notice?num=${requestScope.dto.num}" class="btn btn-default">Update</a>
-  			<a href="./${board}Delete.notice?num=${requestScope.dto.num}" class="btn btn-default">Delete</a>
-  			<a href="./${board}Reply.notice?num=${requestScope.dto.num}" class="btn btn-default">Reply</a>
-  			<a href="./${board}List.notice?num=${requestScope.dto.num}" class="btn btn-default">List</a>
+  			<a href="./${board}Update?num=${dto.num}" class="btn btn-default">Update</a>
+  			<a href="./${board}Delete?num=${dto.num}" class="btn btn-default">Delete</a>
+  			<c:if test="${board ne 'notice'}" >
+  				<a href="./${board}Reply?num=${dto.num}" class="btn btn-default">Reply</a>
+  			</c:if>
+  			<a href="./${board}List?num=${dto.num}" class="btn btn-default">List</a>
   			
   		</div>
+  		
+		
 	</div>
 	
 </body>
