@@ -152,7 +152,10 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeWrite", method = RequestMethod.GET)
-	public ModelAndView boardWrite()throws Exception{
+	public ModelAndView boardWrite(HttpSession session)throws Exception{
+		if(session.getAttribute("member") != null) {
+			
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("PageName","Notice Board");
 		mv.addObject("board", "notice");

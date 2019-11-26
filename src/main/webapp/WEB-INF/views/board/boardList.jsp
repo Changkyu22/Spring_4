@@ -74,7 +74,9 @@
 			 </c:if>
 	  	 </ul>
 	  	 <span>
-	  	 	<a href="./${board}Write" class="btn btn-default">Write</a>
+	  	 	<c:if test="${not empty member}">
+	  	 		<a href="./${board}Write" class="btn btn-default">Write</a>
+	  	 	</c:if>
 	  	 </span>
 	  </div>
 	  
