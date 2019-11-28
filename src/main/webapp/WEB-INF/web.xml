@@ -38,17 +38,4 @@
   	<filter-name>encode</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
-<!--   <filter> -->
-<!--     <display-name>EncodingFilter</display-name> -->
-<!--     <filter-name>EncodingFilter</filter-name> -->
-<!--     <filter-class>com.nuri.filter.EncodingFilter</filter-class> -->
-<!--     <inint-param> -->
-<!--     	<param-name>encode</param-name> -->
-<!--     	<param-value>UTF-8</param-value> -->
-<!--     </inint-param> -->
-<!--   </filter> -->
-<!--   <filter-mapping> -->
-<!--     <filter-name>EncodingFilter</filter-name> -->
-<!--     <url-pattern>/*</url-pattern> -->
-<!--   </filter-mapping> -->
 </web-app>

@@ -3,49 +3,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- root-context.xml -->
 	
-		<context:property-placeholder file-encoding="UTF-8" location="classpath:/properties/**/*.properties"/>
-		<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-			<property name="username" value="${oracle.user}"/>
-			<property name="password" value="${oracle.password}"/>
-			<property name="url" value="${oracle.url}"/>
-			<property name="driverClassName" value="${oracle.driver}"/>
-		</bean>
-		
-		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
-			<property name="dataSource" ref="dataSource"/>
-			<property name="mapperLocations" value="classpath:/mybatis/mappers/*Mapper.xml"/>
-			<property name="configLocation" value="classpath:/mybatis/config/mybatisConfig.xml"/>
-		</bean>
-		<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
-			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
-		</bean>	
-
-		<!-- 잘게 잘라온 파일을 받아주는 API -->
-		<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-			<!-- Encoding 설정 -->
-			<property name="defaultEncoding" value="UTF-8"/>
-			<!-- 전체 첨부 용량 (byte 단위) -->
-			<property name="maxUploadSize" value="104857600"/>
-			<!-- 파일당 첨부 용량 (byte 단위) -->
-			<property name="maxUploadSizePerFile" value="10485760"/>
-		</bean>
-		
-		<!-- transAction Maneger 설정 -->
-		<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="txManager">
-			<property name="dataSource" ref="dataSource"/>
-		</bean>
 		
 
-		<tx:annotation-driven/>
 
 
 

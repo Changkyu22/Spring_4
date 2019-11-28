@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,8 +33,13 @@ public class NoticeController {
 	@Inject
 	private BoardNoticeService boardNoticeService;
 	
-	@Value("${notice}")
+	@Value("#{db['notice']}")
 	private String board;
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return board;
+	}
 	
 	@PostMapping(value = "summerFileDelete")
 	public ModelAndView summerFileDelete(String file, HttpSession session) throws Exception{
@@ -66,7 +72,6 @@ public class NoticeController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("file", filesVO);
 		mv.setViewName("fileDown");
-		mv.addObject("board", "notice");
 		return mv;
 	}
 	
@@ -109,7 +114,6 @@ public class NoticeController {
 		int size = noticeVO.getFiles().size();
 		mv.addObject("size", size);
 		mv.addObject("PageName","Notice Board");
-		mv.addObject("board", "notice");
 		mv.addObject("dto", boardVO);
 		mv.setViewName("board/boardUpdate");
 		return mv;
@@ -135,9 +139,8 @@ public class NoticeController {
 		boardVO = boardNoticeService.boardSelect(boardVO);
 		ModelAndView mv = new ModelAndView();
 		boardVO.setContents(boardVO.getContents().replace("\r\n", "<br>"));
-		mv.addObject("dto", boardVO);
+//		mv.addObject("dto", boardVO);
 		mv.addObject("PageName","Notice Board");
-		mv.addObject("board", "notice");
 		mv.setViewName("board/boardSelect");
 		return mv;
 	}
@@ -163,7 +166,6 @@ public class NoticeController {
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("PageName","Notice Board");
-		mv.addObject("board", "notice");
 		mv.setViewName("board/boardWrite");
 		return mv;
 	}
