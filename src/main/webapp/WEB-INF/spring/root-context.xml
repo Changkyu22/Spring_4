@@ -12,12 +12,12 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- root-context.xml -->
 	
-		<context:property-placeholder file-encoding="UTF-8" location="classpath:/properties/dataSource.properties"/>
+		<context:property-placeholder file-encoding="UTF-8" location="classpath:/properties/**/*.properties"/>
 		<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 			<property name="username" value="${oracle.user}"/>
 			<property name="password" value="${oracle.password}"/>
 			<property name="url" value="${oracle.url}"/>
-			<property name="driverClassName" value="oracle.driver"/>
+			<property name="driverClassName" value="${oracle.driver}"/>
 		</bean>
 		
 		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">

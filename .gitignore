@@ -23,3 +23,5 @@
 hs_err_pid*
 src/main/resources/properties/dataSource.properties
 target/classes/properties/dataSource.properties
+target/classes/properties/common.properties
+src/main/resources/properties/common.properties

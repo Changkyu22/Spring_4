@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,9 @@ public class BoardNoticeService implements BoardService {
 	
 	@Inject
 	private NoticeFilesDAO noticeFilesDAO;
+	
+	@Value("${notice}")
+	private String board;
 	
 	public boolean summerFileDelete(String file, HttpSession session) throws Exception{
 		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
@@ -75,7 +79,8 @@ public class BoardNoticeService implements BoardService {
 	public int boardWrite(BoardVO boardVO, MultipartFile [] file, HttpSession session) throws Exception {
 		// server HDD save
 		// 1. realPath
-		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
+		String realPath = session.getServletContext().getRealPath("resources/upload/"+board);
+		System.out.println(realPath);
 		FilesVO noticeFilesVO = new FilesVO();
 		int result = boardNoticeDAO.boardWrite(boardVO);
 		
