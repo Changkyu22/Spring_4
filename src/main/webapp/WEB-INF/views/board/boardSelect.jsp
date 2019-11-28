@@ -47,8 +47,11 @@
     		</div>
   			</form>
   			
-  			<a href="./${board}Update?num=${dto.num}" class="btn btn-default">Update</a>
-  			<a href="./${board}Delete?num=${dto.num}" class="btn btn-default">Delete</a>
+  			
+  			<c:if test="${member.id eq dto.writer}">
+	  			<a href="./${board}Update?num=${dto.num}" class="btn btn-default">Update</a>
+	  			<a href="./${board}Delete?num=${dto.num}" class="btn btn-default">Delete</a>
+  			</c:if>
   			<c:if test="${board ne 'notice'}" >
   				<a href="./${board}Reply?num=${dto.num}" class="btn btn-default">Reply</a>
   			</c:if>

@@ -14,7 +14,7 @@
     	</select>
     	
     	<insert id="fileWrite" parameterType="FilesVO">
-    		insert into qnafiles values(files_seq.nextval, #{num}, #{fname}, #{oname})
+    		insert into qnafiles values(file_seq.nextval, #{num}, #{fname}, #{oname})
     	</insert>
     	
 <!--     	<select id="fileList" parameterType="Integer" resultType="QnaFilesVO"> -->
